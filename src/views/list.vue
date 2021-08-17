@@ -1,62 +1,60 @@
 <template>
-  <div>
-    <scroller ref="scroller" :on-refresh="refresh" :on-infinite="infinite">
-      <div class="list">
-        <div class="listItem" v-for="(item,index) in list" :key="index" @click="toDetail(item.id)">
-          <img src="http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750" alt="" class="pic">
-          <div class="name ellipsis">天河第一隆江猪脚饭</div>
-          <div class="label clearfix">
-            <span class="fl" v-for="(i,v) in 3" :key="v">美食</span>
-             <div class="fr km">2.6km</div>
-          </div>
-          <div class="quan ellipsis">
-            <img src="../assets/images/home/coupon.png" alt="" width="16">门店优惠折扣：汇享8折优惠，并免会员费
-          </div>
-          <div class="position ellipsis">广州天河区科韵路码农三号街</div>
+  <div class="list">
+    <van-list v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+      <div class="listItem" v-for="(item,index) in list" :key="index" @click="toDetail(item.id)">
+        <img src="http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750" alt="" class="pic">
+        <div class="name ellipsis">天河第一隆江猪脚饭</div>
+        <div class="label clearfix">
+          <span class="fl" v-for="(i,v) in 3" :key="v">美食</span>
+          <div class="fr km">2.6km</div>
         </div>
+        <div class="quan ellipsis">
+          <img src="../assets/images/home/coupon.png" alt="" width="16">门店优惠折扣：汇享8折优惠，并免会员费
+        </div>
+        <div class="position ellipsis">广州天河区科韵路码农三号街</div>
       </div>
-    </scroller>
+    </van-list>
   </div>
 </template>
 
 <script>
+import { createApp, reactive, onMounted, toRefs } from 'vue'
+import { List } from 'vant'
+const app = createApp()
+app.use(List)
 export default {
-  data () {
-    return {
+  setup () {
+    const state = reactive({
       list: [],
-      currIndex: 0,
-      lastDataLength: 1000,
-      lng: '',
-      lat: ''
+      loading: false,
+      finished: false
+    })
+
+    onMounted(() => {
+      console.log(99)
+    })
+
+    const onLoad = () => {
+      // setTimeout 仅做示例，真实场景中一般为 ajax 请求
+      setTimeout(() => {
+        for (let i = 0; i < 10; i++) {
+          state.list.push(i)
+        }
+
+        // 加载状态结束
+        state.loading = false
+
+        // 数据全部加载完成
+        if (state.list.length >= 40) {
+          state.finished = true
+        }
+      }, 1000)
     }
-  },
-  methods: {
-    toDetail (id) {
-      this.$router.push({
-        path: '/shopDetail?id=' + id
-      })
-    },
-    refresh (done) {
-      this.currIndex = 1
-      this.getList(done)
-    },
-    infinite (done) {
-      if (this.list.length > 50) {
-        this.$refs.scroller.finishInfinite(true)
-      } else {
-        this.currIndex++
-        this.getList(done)
-      }
-    },
-    getList (callback) {
-      for (let i = 0; i < 10; i++) {
-        this.list.push(i)
-      }
-      callback && callback()
+
+    return {
+      ...toRefs(state),
+      onLoad
     }
-  },
-  mounted () {
-    document.title = this.$route.query.name
   }
 }
 </script>
@@ -105,7 +103,7 @@ export default {
         transform: translateY(-2px);
       }
     }
-    .quan1{
+    .quan1 {
       height: 15px;
     }
   }

@@ -19,12 +19,12 @@ const routes = [
   //   component: () => import('../views/map.vue'),
   //   meta: { title: '公交地图', keepAlive: false, auth: true }
   // },
-  // {
-  //   path: '/list',
-  //   name: 'list',
-  //   component: () => import('../views/list.vue'),
-  //   meta: { title: '商家列表', keepAlive: false, auth: false }
-  // },
+  {
+    path: '/list',
+    name: 'list',
+    component: () => import('../views/list.vue'),
+    meta: { title: '商家列表', keepAlive: false, auth: false }
+  },
   // {
   //   path: '/search',
   //   name: 'search',
