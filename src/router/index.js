@@ -36,13 +36,13 @@ const routes = [
     name: 'shopDetail',
     component: () => import('../views/shopDetail.vue'),
     meta: { title: '商家详情', keepAlive: false, auth: false }
-  }
-  // {
-  //   path: '/mine',
-  //   name: 'mine',
-  //   component: () => import('../views/mine.vue'),
-  //   meta: { title: '我的', keepAlive: false, auth: true }
-  // },
+  },
+  {
+    path: '/mine',
+    name: 'mine',
+    component: () => import('../views/mine.vue'),
+    meta: { title: '我的', keepAlive: false, auth: true }
+  },
   // {
   //   path: '/echarts',
   //   name: 'echarts',
@@ -61,12 +61,12 @@ const routes = [
   //   component: () => import('../views/qrCode.vue'),
   //   meta: { title: '付款码', keepAlive: false, auth: false }
   // },
-  // {
-  //   path: '/orderList',
-  //   name: 'orderList',
-  //   component: () => import('../views/orderList.vue'),
-  //   meta: { title: '我的订单', keepAlive: false, auth: false }
-  // }
+  {
+    path: '/orderList',
+    name: 'orderList',
+    component: () => import('../views/orderList.vue'),
+    meta: { title: '我的订单', keepAlive: false, auth: false }
+  }
 ]
 
 const router = createRouter({

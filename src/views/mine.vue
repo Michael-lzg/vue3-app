@@ -28,17 +28,17 @@
         <span>{{item.name}}</span>
       </div>
     </div>
-    <footerBar></footerBar>
+    <!-- <footerBar></footerBar> -->
   </div>
 </template>
 
 <script>
-import footerBar from '../components/footerBar'
-import EXIF from 'exif-js'
+import { reactive, toRefs } from 'vue'
+import { useRouter } from 'vue-router'
 export default {
-  components: { footerBar },
-  data () {
-    return {
+  setup () {
+    const router = useRouter()
+    const state = reactive({
       url: require('../assets/images/lzg.jpg'),
       list: [
         { name: '我的订单', url: 'orderList', icon: require('../assets/images/home/dingdan.png') },
@@ -46,44 +46,19 @@ export default {
         { name: '公交地图', url: '/map', icon: require('../assets/images/home/gjiao.png') },
         { name: '我的支付宝', url: 'qrCode', icon: require('../assets/images/home/zhifubao.png') }
       ],
-      tel: sessionStorage.getItem('tel'),
-      name: sessionStorage.getItem('name')
-    }
-  },
-  comments: { EXIF },
-  methods: {
-    toUrl (item) {
-      this.$router.push({
+      tel: sessionStorage.getItem('tel') || 'lzg',
+      name: sessionStorage.getItem('name') || '13888888888'
+    })
+
+    const toUrl = (item) => {
+      router.push({
         path: item.url
       })
-    },
-    getUpload () {
-      let vm = this
-      let dom = document.getElementById('upload')
-      let file = dom.files[0]
-      let orientation
-      // 判断是否是图片类型
-      if (!/image\/\w+/.test(file.type)) {
-        this.$toast('只能选择图片')
-        return false
-      }
-      if (file.size / 1024 > 10240) {
-        this.$toast('文件大小不得超过10M')
-        dom.value = ''
-        return false
-      }
-      EXIF.getData(file, function () {
-        orientation = EXIF.getTag(this, 'Orientation')
-        var reader = new FileReader()
-        reader.readAsDataURL(file)
-        reader.onload = function (e) {
-          vm.util.getImgData(this.result, orientation, function (data) {
-            vm.util.dealImage(data, { width: 0 }, function (res) {
-              vm.url = res
-            })
-          })
-        }
-      })
+    }
+
+    return {
+      ...toRefs(state),
+      toUrl
     }
   }
 }
@@ -119,7 +94,7 @@ export default {
     top: 20px;
     width: 60px;
     height: 60px;
-    opacity: 0
+    opacity: 0;
   }
   .info {
     .name {

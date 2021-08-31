@@ -1,41 +1,41 @@
 <template>
   <div class="mainPage">
     <ul>
-        <li class="clearfix b-border" v-for="(item,index) in list" :key="index">
-          <div class="fl img-div">
-            <img class="fl" :src="item.image" />
-          </div>
-          <div class="fl info-div">
-            <h4 class="ellipsis">{{item.name}}</h4>
-            <div class="clearfix info-price">
-              <p class="fl">消费金额：</p>
-              <div class="clearfix fl">
-                <span class="fl">{{item.price}}元</span>
-              </div>
+      <li class="clearfix b-border" v-for="(item,index) in list" :key="index">
+        <div class="fl img-div">
+          <img class="fl" :src="item.image" />
+        </div>
+        <div class="fl info-div">
+          <h4 class="ellipsis">{{item.name}}</h4>
+          <div class="clearfix info-price">
+            <p class="fl">消费金额：</p>
+            <div class="clearfix fl">
+              <span class="fl">{{item.price}}元</span>
             </div>
-            <p class="ellipsis time">消费时间：2020-12-20</p>
           </div>
-          <div class="fl evaluation-div">
-            <a href="javascript:;">评价</a>
-          </div>
-        </li>
+          <p class="ellipsis time">消费时间：2020-12-20</p>
+        </div>
+        <div class="fl evaluation-div">
+          <a href="javascript:;">评价</a>
+        </div>
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
-import { data } from '../JS/shopData'
+import { reactive, toRefs } from 'vue'
+import { data } from '../js/shopData'
 export default {
-  data () {
-    return {
-      list: []
-    }
-  },
-  mounted () {
-    this.list = data.data[0].foods
-    console.log(this.list)
-  }
+  setup () {
+    const state = reactive({
+      list: data.data[0].foods
+    })
 
+    return {
+      ...toRefs(state)
+    }
+  }
 }
 </script>
 
@@ -43,7 +43,6 @@ export default {
 .mainPage {
   background: #fff;
   > ul {
-    // padding: 0 15px;
     position: relative;
     height: 100%;
     overflow: auto;
