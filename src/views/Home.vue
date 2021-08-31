@@ -28,8 +28,8 @@
         </div>
       </div>
     </div>
-    <!-- <div class="loadAll">没有更多数据</div>
-    <footerBar></footerBar> -->
+    <!-- <div class="loadAll">没有更多数据</div> -->
+    <footerBar></footerBar>
   </div>
 </template>
 
@@ -37,8 +37,9 @@
 import { reactive, onMounted, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
 import { Rate } from 'vant'
+import footerBar from '../components/footerBar.vue'
 export default {
-  components: { Rate },
+  components: { Rate, footerBar },
   setup () {
     const router = useRouter()
     const state = reactive({

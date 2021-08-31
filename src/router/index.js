@@ -43,24 +43,24 @@ const routes = [
     component: () => import('../views/mine.vue'),
     meta: { title: '我的', keepAlive: false, auth: true }
   },
-  // {
-  //   path: '/echarts',
-  //   name: 'echarts',
-  //   component: () => import('../views/echarts.vue'),
-  //   meta: { title: '消费统计', keepAlive: false, auth: true }
-  // },
-  // {
-  //   path: '/login',
-  //   name: 'login',
-  //   component: () => import('../views/login.vue'),
-  //   meta: { title: '登录', keepAlive: false, auth: false }
-  // },
-  // {
-  //   path: '/qrCode',
-  //   name: 'qrCode',
-  //   component: () => import('../views/qrCode.vue'),
-  //   meta: { title: '付款码', keepAlive: false, auth: false }
-  // },
+  {
+    path: '/echarts',
+    name: 'echarts',
+    component: () => import('../views/echarts.vue'),
+    meta: { title: '消费统计', keepAlive: false, auth: true }
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/login.vue'),
+    meta: { title: '登录', keepAlive: false, auth: false }
+  },
+  {
+    path: '/qrCode',
+    name: 'qrCode',
+    component: () => import('../views/qrCode.vue'),
+    meta: { title: '付款码', keepAlive: false, auth: false }
+  },
   {
     path: '/orderList',
     name: 'orderList',

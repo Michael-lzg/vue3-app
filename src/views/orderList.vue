@@ -114,15 +114,6 @@ export default {
             border: none;
           }
         }
-        i {
-          position: absolute;
-          top: -27px;
-          left: -5px;
-          width: 73px;
-          height: 26px;
-          // background: url(../../assets/img/evaluation/ic-pagecontrols-package@2x.png) no-repeat;
-          background-size: 100% 100%;
-        }
       }
     }
   }

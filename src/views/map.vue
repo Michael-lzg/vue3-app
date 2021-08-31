@@ -5,14 +5,16 @@
 </template>
 
 <script>
+import { onMounted } from 'vue'
 import AMap from 'AMap' // 引入高德地图
 export default {
-  mounted () {
-    this.init()
-  },
-  methods: {
-    init () {
-      let map = new AMap.Map('container', {
+  setup () {
+    onMounted(() => {
+      init()
+    })
+
+    const init = () => {
+      const map = new AMap.Map('container', {
         center: [113.402259, 23.163992],
         resizeEnable: true,
         zoom: 16
@@ -27,6 +29,10 @@ export default {
       })
       map.add(marker)// 添加到地图
       // map.remove(marker) // 删除标记
+    }
+
+    return {
+      init
     }
   }
 }

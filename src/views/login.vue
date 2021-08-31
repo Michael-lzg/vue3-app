@@ -4,9 +4,6 @@
       <input type="text" placeholder="请输入用户名" v-model="name">
     </div>
     <div class="item">
-      <input type="text" placeholder="请输入手机号" v-model="tel" maxlength="11">
-    </div>
-    <div class="item">
       <input type="text" placeholder="请输入密码" v-model="psw">
     </div>
     <div class="item">
@@ -16,33 +13,37 @@
 </template>
 
 <script>
+import { reactive, toRefs, createApp } from 'vue'
+import { useRouter } from 'vue-router'
+import { Toast } from 'vant'
+const app = createApp()
+app.use(Toast)
 export default {
-  data () {
-    return {
+  setup () {
+    const router = useRouter()
+    const state = reactive({
       name: '',
-      tel: '',
       psw: ''
-    }
-  },
-  methods: {
-    submit () {
-      if (!this.name) {
-        this.$toast({ msg: '请输入用户名' })
+    })
+
+    const submit = () => {
+      if (!state.name) {
+        Toast({ msg: '请输入用户名' })
         return
       }
-      if (!this.util.isPhone(this.tel)) {
-        this.$toast({ msg: '请输入正确手机号' })
+      if (!state.psw) {
+        Toast({ msg: '请输入密码' })
         return
       }
-      if (!this.psw) {
-        this.$toast({ msg: '请输入密码' })
-        return
-      }
-      sessionStorage.setItem('tel', this.tel)
       sessionStorage.setItem('name', this.name)
-      this.$router.replace({
+      router.replace({
         path: '/mine'
       })
+    }
+
+    return {
+      ...toRefs(state),
+      submit
     }
   }
 }
@@ -53,19 +54,22 @@ export default {
   padding-top: 150px;
   .item {
     padding: 0 15px;
+    margin-bottom: 15px;
     > input {
       width: 100%;
-      height: 45px;
-      line-height: 45px;
+      height: 50px;
+      line-height: 50px;
       position: relative;
-      border-bottom: 1px solid #e9e9e9;
+      background-color: #f5f5f5;
+      border-radius: 50px;
+      text-align: center;
     }
-    .btn{
+    .btn {
       width: 100%;
-      height: 45px;
-      line-height: 45px;
+      height: 50px;
+      line-height: 50px;
       background-color: rgb(49, 144, 232);
-      color:#fff;
+      color: #fff;
       text-align: center;
       border-radius: 2px;
       margin-top: 30px;

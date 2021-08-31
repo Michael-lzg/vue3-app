@@ -1,43 +1,48 @@
 <template>
-    <ul>
-      <li v-for="(item,i) in items" :key='i' class="w2" @click="toUrl(i)">
-        <svg class="icon" aria-hidden="true" v-if="$route.path==item.url">
-          <use :xlink:href="item.icon1"></use>
-        </svg>
-         <svg class="icon" aria-hidden="true" v-if="$route.path!==item.url">
-          <use :xlink:href="item.icon2"></use>
-        </svg>
-        <div class="name" :class="{'c1':$route.path==item.url}">{{item.name}}</div>
-      </li>
-      <div class="bt1"></div>
-    </ul>
+  <ul>
+    <li v-for="(item,index) in items" :key='index' @click="toUrl(item.url)">
+      <img :src="item.icon1" v-if="$route.path==item.url">
+      <img :src="item.icon2" v-else>
+      <div class="name" :class="{'c1':$route.path==item.url}">{{item.name}}</div>
+    </li>
+  </ul>
 </template>
 
 <script>
+import { reactive, toRefs, createApp } from 'vue'
+import { useRouter } from 'vue-router'
+import { Toast } from 'vant'
+const app = createApp()
+app.use(Toast)
 export default {
-  data () {
-    return {
+  setup () {
+    const router = useRouter()
+    const state = reactive({
       items: [
         {
           name: '首页',
           url: '/',
-          icon1: '#icon-index1',
-          icon2: '#icon-index0'
+          icon1: require('../assets/images/home/icon_home_home_H.png'),
+          icon2: require('../assets/images/home/icon_home_home_N.png')
         },
         {
           name: '我的',
           url: '/mine',
-          icon1: '#icon-mine1',
-          icon2: '#icon-mine0'
+          icon1: require('../assets/images/home/icon_home_mine_H.png'),
+          icon2: require('../assets/images/home/icon_home_mine_N.png')
         }
       ]
-    }
-  },
-  methods: {
-    toUrl (i) {
-      this.$router.replace({
-        path: this.items[i].url
+    })
+
+    const toUrl = (url) => {
+      router.replace({
+        path: url
       })
+    }
+
+    return {
+      ...toRefs(state),
+      toUrl
     }
   }
 }
@@ -57,11 +62,10 @@ ul {
     height: 55px;
     width: 50%;
     padding-top: 9px;
-    .img {
+    >img {
       width: 24px;
       height: 24px;
       margin: 0 auto;
-      margin-top: 9px;
     }
     .name {
       text-align: center;
@@ -70,11 +74,7 @@ ul {
     }
   }
 }
-svg{
-  width:22px !important;
-  height: 22px !important;
-}
-.c1{
-  color: #597EF7 !important;
+.c1 {
+  color: #597ef7 !important;
 }
 </style>

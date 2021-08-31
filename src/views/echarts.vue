@@ -6,24 +6,25 @@
     <div class="block">
       <div id="pie" :style="{width: '100%', height: '300px'}"></div>
     </div>
-     <div class="block">
+    <div class="block">
       <div id="line" :style="{width: '100%', height: '300px'}"></div>
     </div>
   </div>
 </template>
 
 <script>
-import echarts from 'echarts'
+import { onMounted } from 'vue'
+import * as echarts from 'echarts'
 export default {
-  name: 'hello',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  },
-  methods: {
-    drawBar () {
-      let myChart = echarts.init(document.getElementById('bar'))
+  setup () {
+    onMounted(() => {
+      drawBar()
+      drawPie()
+      drawLine()
+    })
+
+    const drawBar = () => {
+      const myChart = echarts.init(document.getElementById('bar'))
       myChart.setOption({
         title: { text: '消费分布柱状图' },
         color: ['#3398DB'], // 此处可设置柱条全局颜色
@@ -38,9 +39,9 @@ export default {
           data: [300, 150, 100, 450, 50, 150, 200]
         }]
       })
-    },
-    drawPie () {
-      let myChart = echarts.init(document.getElementById('pie'))
+    }
+    const drawPie = () => {
+      const myChart = echarts.init(document.getElementById('pie'))
       myChart.setOption({
         title: { text: '消费占比饼图' },
         color: ['#0E8FE8', '#FFB900', '#fad797', '#59ccf7', '#c3b4df', '#3398DB', '#F34848'],
@@ -62,9 +63,9 @@ export default {
           ]
         }]
       })
-    },
-    drawLine () {
-      let myChart = echarts.init(document.getElementById('line'))
+    }
+    const drawLine = () => {
+      const myChart = echarts.init(document.getElementById('line'))
       myChart.setOption({
         title: { text: '消费趋势图' },
         color: ['#3398DB'], // 此处可设置柱条全局颜色
@@ -81,11 +82,12 @@ export default {
         }]
       })
     }
-  },
-  mounted () {
-    this.drawBar()
-    this.drawPie()
-    this.drawLine()
+
+    return {
+      drawBar,
+      drawPie,
+      drawLine
+    }
   }
 }
 </script>
@@ -94,8 +96,8 @@ export default {
   height: 100%;
   background-color: #fff;
   overflow: auto;
-  .block{
-    padding:10px;
+  .block {
+    padding: 10px;
   }
 }
 </style>

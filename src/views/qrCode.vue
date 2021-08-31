@@ -9,11 +9,16 @@
 </template>
 
 <script>
+import { onMounted } from 'vue'
 import QRCode from 'qrcodejs2'
 export default {
-  methods: {
-    qrCode (url) {
-      let qrcode = new QRCode('qrcode', {
+  setup () {
+    onMounted(() => {
+      qrCode()
+    })
+
+    const qrCode = () => {
+      const qrcode = new QRCode('qrcode', {
         text: 'https:baidu.com',
         width: 200, // 图像宽度
         height: 200, // 图像高度
@@ -24,9 +29,10 @@ export default {
       })
       console.log(qrcode)
     }
-  },
-  mounted () {
-    this.qrCode()
+
+    return {
+      qrCode
+    }
   }
 }
 </script>
@@ -45,7 +51,7 @@ export default {
     margin-right: 10px;
   }
 }
-.bot{
+.bot {
   text-align: center;
   font-size: 16px;
   color: #ccc;
@@ -56,5 +62,4 @@ export default {
   height: 200px;
   margin: 0 auto;
 }
-
 </style>

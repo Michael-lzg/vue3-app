@@ -28,14 +28,16 @@
         <span>{{item.name}}</span>
       </div>
     </div>
-    <!-- <footerBar></footerBar> -->
+    <footerBar></footerBar>
   </div>
 </template>
 
 <script>
 import { reactive, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
+import footerBar from '../components/footerBar.vue'
 export default {
+  components: { footerBar },
   setup () {
     const router = useRouter()
     const state = reactive({
