@@ -48,8 +48,8 @@ export default {
         { name: '公交地图', url: '/map', icon: require('../assets/images/home/gjiao.png') },
         { name: '我的支付宝', url: 'qrCode', icon: require('../assets/images/home/zhifubao.png') }
       ],
-      tel: sessionStorage.getItem('tel') || 'lzg',
-      name: sessionStorage.getItem('name') || '13888888888'
+      tel: sessionStorage.getItem('tel') || '138888888888',
+      name: sessionStorage.getItem('name') || 'admin'
     })
 
     const toUrl = (item) => {

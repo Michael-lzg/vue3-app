@@ -7,7 +7,7 @@
       <input type="text" placeholder="请输入密码" v-model="psw">
     </div>
     <div class="item">
-      <div class="btn" @click="submit">提交</div>
+      <div class="btn" @click="submit">登录</div>
     </div>
   </div>
 </template>
@@ -28,14 +28,14 @@ export default {
 
     const submit = () => {
       if (!state.name) {
-        Toast({ msg: '请输入用户名' })
+        Toast('请输入用户名')
         return
       }
       if (!state.psw) {
-        Toast({ msg: '请输入密码' })
+        Toast('请输入密码')
         return
       }
-      sessionStorage.setItem('name', this.name)
+      sessionStorage.setItem('name', state.name)
       router.replace({
         path: '/mine'
       })
